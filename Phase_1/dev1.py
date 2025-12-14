@@ -14,6 +14,7 @@ yield_CA = 1 #Yield of C from A being the limiting species.
 #Of the reactant that did react, how much of that ended up as the desired product? 
 #This would be 100% as only C is produced
 X_A = 0.9 #Coversion of A
+N_units = 1 #Number of reactors or functional units
 
 #Stream A
 m_A_in = 1 #kg/s
@@ -51,3 +52,11 @@ print("Outflow of C =", m_C_out, "kg/s")
 print("Outflow of B =", m_B_out, "kg/s")
 print("Outflow of A =", m_A_out, "kg/s")
 
+#OPEX and CAPEX
+#CAPEX estimation based on Bridgwater's (IChemE) correlation
+Q = m_tot_in * 3600 * 24 * 365 / 1000  #Annual plant capacity in te/y
+if Q < 60000:
+    C = 150000 * N_units * (Q / X_A)**0.30
+else:
+    C = 170 * N_units * (Q / X_A)**0.675
+print(C)
